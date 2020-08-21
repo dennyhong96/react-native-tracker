@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 const Map = () => {
   const location = useSelector(({ location }) => location);
-  console.log(location.curLocation);
 
   if (!location.curLocation) {
     return <ActivityIndicator size="large" style={{ marginTop: 200 }} />;
