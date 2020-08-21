@@ -1,11 +1,24 @@
+import "../_mockLocation"; // Mock location change
+
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet, SafeAreaView } from "react-native";
+import { Text } from "react-native-elements";
+import { useDispatch } from "react-redux";
+import { addLocation } from "../redux/actions/location";
+
+import useLocation from "../hooks/useLocation";
+import Map from "../components/Map";
 
 const TrackCreateScreen = () => {
+  const dispatch = useDispatch();
+  const [err] = useLocation((location) => dispatch(addLocation(location)));
+
   return (
-    <View>
-      <Text>TrackCreateScreen</Text>
-    </View>
+    <SafeAreaView>
+      <Text h2>Create a track</Text>
+      <Map />
+      {!!err && <Text>Please enable location services.</Text>}
+    </SafeAreaView>
   );
 };
 
