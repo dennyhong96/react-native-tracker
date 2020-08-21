@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 import MapView, { Polyline, Circle } from "react-native-maps";
 import { useSelector } from "react-redux";
 
@@ -25,6 +25,7 @@ const Map = () => {
         strokeColor="rgba(158, 158, 255, 1.0)" // Border
         fillColor="rgba(158, 158, 255, 0.3)"
       />
+      <Polyline coordinates={location.locations.map((loc) => loc.coords)} />
     </MapView>
   );
 };

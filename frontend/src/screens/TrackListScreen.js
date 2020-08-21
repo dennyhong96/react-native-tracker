@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
+import { useDispatch, useSelector } from "react-redux";
+import { listTracks } from "../redux/actions/tracks";
+
 const TrackListScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(listTracks());
+  }, []);
+
   return (
     <View>
       <Text>TrackListScreen</Text>

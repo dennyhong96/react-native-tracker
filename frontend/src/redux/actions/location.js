@@ -3,6 +3,8 @@ import {
   RECORDING_STOPPED,
   LOCATION_ADDED,
   LOCATION_CHANGED,
+  CLEAR_LOCATION,
+  TRACKNAME_CHANGED,
 } from "./actionTypes";
 
 export const addLocation = (location) => (dispatch, getState) => {
@@ -30,12 +32,24 @@ export const addLocation = (location) => (dispatch, getState) => {
 export const startRecording = (trackName) => (dispatch) => {
   dispatch({
     type: RECORDING_STARTED,
-    payload: trackName,
   });
 };
 
 export const stopRecording = () => (dispatch) => {
   dispatch({
     type: RECORDING_STOPPED,
+  });
+};
+
+export const clearLocation = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_LOCATION,
+  });
+};
+
+export const setTrackName = (trackName) => (disptach) => {
+  disptach({
+    type: TRACKNAME_CHANGED,
+    payload: trackName,
   });
 };

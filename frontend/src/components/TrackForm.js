@@ -1,40 +1,49 @@
 import React, { Fragment, useState } from "react";
 import { Input, Button, Text } from "react-native-elements";
-import { startRecording, stopRecording } from "../redux/actions/location";
+import { useNavigation } from "@react-navigation/native";
+
 import { useDispatch, useSelector } from "react-redux";
 
+import {
+  startRecording,
+  stopRecording,
+  setTrackName,
+} from "../redux/actions/location";
+import { createTrack } from "../redux/actions/tracks";
 import Spacer from "./Spacer";
 
 const TrackForm = () => {
-  const [name, setName] = useState("");
   const dispatch = useDispatch();
   const location = useSelector(({ location }) => location);
+  const navigation = useNavigation();
 
   return (
     <Fragment>
       <Spacer>
-        {location.isRecording ? (
-          <Spacer>
-            <Text>
-              Recording for track: {location.trackName || "Unnamed Track"}
-            </Text>
-          </Spacer>
-        ) : (
-          <Input
-            disabled={location.isRecording}
-            placeholder="Enter Track Name"
-            value={name}
-            onChangeText={(text) => setName(text)}
-          />
-        )}
+        <Input
+          disabled={
+            location.isRecording ||
+            (!location.isRecording && !!location.locations.length)
+          }
+          placeholder="Enter Track Name"
+          value={location.trackName}
+          onChangeText={(text) => dispatch(setTrackName(text))}
+        />
         <Button
           title={location.isRecording ? "Stop Recording" : "Start Recording"}
           onPress={() =>
-            dispatch(
-              location.isRecording ? stopRecording() : startRecording(name)
-            )
+            dispatch(location.isRecording ? stopRecording() : startRecording())
           }
         />
+        <Spacer />
+        {!location.isRecording && !!location.locations.length && (
+          <Button
+            title={`Save ${location.trackName}`}
+            onPress={() =>
+              dispatch(createTrack(() => navigation.navigate("TrackList")))
+            }
+          />
+        )}
       </Spacer>
     </Fragment>
   );
