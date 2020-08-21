@@ -7,9 +7,9 @@ import {
   AUTH_ERROR,
   CLEAR_ERR_MSG,
   FINISH_LOCAL_TOKEN_LOADING,
+  USER_LOG_OUT,
 } from "./actionTypes";
 
-import { startLoading, endLoading } from "../actions/loading";
 import trackerApi from "../../api/tracker";
 
 export const signup = (formData) => async (dispatch) => {
@@ -60,4 +60,9 @@ export const localSignin = () => async (dispatch) => {
     dispatch({ type: USER_SIGNED_IN, payload: token });
   }
   dispatch({ type: FINISH_LOCAL_TOKEN_LOADING });
+};
+
+export const signout = () => async (dispatch) => {
+  await AsyncStorage.removeItem("JWT_TOKEN");
+  dispatch({ type: USER_LOG_OUT });
 };

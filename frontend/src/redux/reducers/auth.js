@@ -5,6 +5,7 @@ import {
   AUTH_ERROR,
   CLEAR_ERR_MSG,
   FINISH_LOCAL_TOKEN_LOADING,
+  USER_LOG_OUT,
 } from "../actions/actionTypes";
 
 const INITIAL_STATE = {
@@ -24,7 +25,9 @@ export default (state = INITIAL_STATE, action) => {
     case USER_LOADED:
       return { ...state, isAuthenticated: true, user: payload };
     case AUTH_ERROR:
-      return { ...INITIAL_STATE, errMsg: payload };
+      return { ...INITIAL_STATE, loadingLocalToken: false, errMsg: payload };
+    case USER_LOG_OUT:
+      return { ...INITIAL_STATE, loadingLocalToken: false };
     case CLEAR_ERR_MSG:
       return { ...state, errMsg: "" };
     case FINISH_LOCAL_TOKEN_LOADING:
