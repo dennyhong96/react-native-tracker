@@ -3,6 +3,7 @@ import {
   USER_SIGNED_UP,
   USER_LOADED,
   AUTH_ERROR,
+  CLEAR_ERR_MSG,
 } from "../actions/actionTypes";
 
 const INITIAL_STATE = {
@@ -22,6 +23,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, isAuthenticated: true, user: payload };
     case AUTH_ERROR:
       return { ...INITIAL_STATE, errMsg: payload };
+    case CLEAR_ERR_MSG:
+      return { ...state, errMsg: "" };
     default:
       return state;
   }

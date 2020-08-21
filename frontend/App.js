@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Provider, useSelector } from "react-redux";
+import { Provider, useSelector, useDispatch } from "react-redux";
 
+import { localSignin } from "./src/redux/actions/auth";
 import store from "./src/redux/store";
 import AccountScreen from "./src/screens/AccountScreen";
 import SigninScreen from "./src/screens/SigninScreen";
@@ -39,6 +40,11 @@ const MainFlow = () => (
 
 const App = () => {
   const auth = useSelector(({ auth }) => auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(localSignin());
+  }, []);
 
   return (
     <NavigationContainer>

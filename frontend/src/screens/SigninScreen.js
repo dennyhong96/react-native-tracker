@@ -2,13 +2,16 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-import { signin } from "../redux/actions/auth";
+import useOnRouteChange from "../hooks/useOnRouteChange";
+import { signin, clearErrMsg } from "../redux/actions/auth";
 import AuthForm from "../components/AuthForm";
 import NavLink from "../components/NavLink";
 
 const SigninScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const auth = useSelector(({ auth }) => auth);
+
+  useOnRouteChange(() => dispatch(clearErrMsg()));
 
   navigation.setOptions({
     header: () => false,

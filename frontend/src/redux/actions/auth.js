@@ -5,6 +5,7 @@ import {
   USER_SIGNED_UP,
   USER_LOADED,
   AUTH_ERROR,
+  CLEAR_ERR_MSG,
 } from "./actionTypes";
 
 import trackerApi from "../../api/tracker";
@@ -19,7 +20,7 @@ export const signup = (formData) => async (dispatch) => {
       payload: res.data.data.token,
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     dispatch({
       type: AUTH_ERROR,
       payload: "Something went wrong signign up",
@@ -37,10 +38,21 @@ export const signin = (formData) => async (dispatch) => {
       payload: res.data.data.token,
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     dispatch({
       type: AUTH_ERROR,
       payload: "Something went wrong signign in.",
     });
+  }
+};
+
+export const clearErrMsg = () => (dispatch) => {
+  dispatch({ type: CLEAR_ERR_MSG });
+};
+
+export const localSignin = () => async (dispatch) => {
+  const token = await AsyncStorage.getItem("JWT_TOKEN");
+  if (token) {
+    dispatch({ type: USER_SIGNED_IN, payload: token });
   }
 };
