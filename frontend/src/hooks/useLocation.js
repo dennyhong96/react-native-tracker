@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   Accuracy,
   requestPermissionsAsync,
@@ -28,9 +28,6 @@ const useLocation = (shouldTrack, callback) => {
           },
           callback
         );
-
-        // Sub is a different value each location update
-        setSubscriber(sub);
       } catch (error) {
         setErr(error);
       }

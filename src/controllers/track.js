@@ -18,8 +18,8 @@ exports.listTracks = async (req, res, next) => {
 exports.createTrack = async (req, res, next) => {
   try {
     const { name, locations } = req.body;
-    if (!(name && locations)) {
-      throw new Error("Name and locations are required.");
+    if (!locations) {
+      throw new Error("locations are required.");
     }
     const track = await Track.create({ name, locations, userId: req.user.id });
     res.status(200).json({
@@ -28,7 +28,7 @@ exports.createTrack = async (req, res, next) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: failed,
+      status: "failed",
       data: { msg: error.message },
     });
   }
