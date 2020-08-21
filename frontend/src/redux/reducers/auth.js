@@ -4,6 +4,7 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   CLEAR_ERR_MSG,
+  FINISH_LOCAL_TOKEN_LOADING,
 } from "../actions/actionTypes";
 
 const INITIAL_STATE = {
@@ -11,6 +12,7 @@ const INITIAL_STATE = {
   user: null,
   token: null,
   errMsg: "",
+  loadingLocalToken: true,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -25,6 +27,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...INITIAL_STATE, errMsg: payload };
     case CLEAR_ERR_MSG:
       return { ...state, errMsg: "" };
+    case FINISH_LOCAL_TOKEN_LOADING:
+      return { ...state, loadingLocalToken: false };
     default:
       return state;
   }

@@ -6,8 +6,10 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   CLEAR_ERR_MSG,
+  FINISH_LOCAL_TOKEN_LOADING,
 } from "./actionTypes";
 
+import { startLoading, endLoading } from "../actions/loading";
 import trackerApi from "../../api/tracker";
 
 export const signup = (formData) => async (dispatch) => {
@@ -32,6 +34,7 @@ export const signin = (formData) => async (dispatch) => {
   console.log(formData);
   try {
     const res = await trackerApi.post("/auth/login", formData);
+    console.log(res.data);
     await AsyncStorage.setItem("JWT_TOKEN", res.data.data.token);
     dispatch({
       type: USER_SIGNED_IN,
@@ -52,7 +55,9 @@ export const clearErrMsg = () => (dispatch) => {
 
 export const localSignin = () => async (dispatch) => {
   const token = await AsyncStorage.getItem("JWT_TOKEN");
+  console.log({ token });
   if (token) {
     dispatch({ type: USER_SIGNED_IN, payload: token });
   }
+  dispatch({ type: FINISH_LOCAL_TOKEN_LOADING });
 };
