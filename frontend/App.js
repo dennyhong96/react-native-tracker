@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Provider, useSelector } from "react-redux";
+import { FontAwesome } from "@expo/vector-icons";
 
 import store from "./src/redux/store";
 import AccountScreen from "./src/screens/AccountScreen";
@@ -32,9 +33,32 @@ const TrackFlow = () => (
 const Tab = createBottomTabNavigator();
 const MainFlow = () => (
   <Tab.Navigator>
-    <Tab.Screen name="TrackStack" component={TrackFlow} />
-    <Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
-    <Tab.Screen name="Account" component={AccountScreen} />
+    <Tab.Screen
+      name="TrackStack"
+      component={TrackFlow}
+      options={() => ({
+        title: "Tracks",
+        tabBarIcon: () => (
+          <FontAwesome name="th-list" size={24} color="black" />
+        ),
+      })}
+    />
+    <Tab.Screen
+      name="TrackCreate"
+      component={TrackCreateScreen}
+      options={() => ({
+        title: "Add Track",
+        tabBarIcon: () => <FontAwesome name="plus" size={24} color="black" />,
+      })}
+    />
+    <Tab.Screen
+      name="Account"
+      component={AccountScreen}
+      options={() => ({
+        title: "Acount",
+        tabBarIcon: () => <FontAwesome name="gear" size={24} color="black" />,
+      })}
+    />
   </Tab.Navigator>
 );
 

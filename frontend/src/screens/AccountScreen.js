@@ -11,7 +11,9 @@ const AccountScreen = () => {
   const dispatch = useDispatch();
   return (
     <SafeAreaView>
-      <Text style={{ fontSize: 48 }}>AccountScreen</Text>
+      <Spacer>
+        <Text style={{ fontSize: 48 }}>AccountScreen</Text>
+      </Spacer>
       <Spacer>
         <Button title="Sign out" onPress={() => dispatch(signout())} />
       </Spacer>

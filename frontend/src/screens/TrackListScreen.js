@@ -20,11 +20,12 @@ const TrackListScreen = ({ navigation }) => {
     dispatch(listTracks());
   }, []);
 
-  console.log(tracks);
+  navigation.setOptions({
+    title: "Tracks",
+  });
 
   return (
     <View>
-      <Text style={{ fontSize: 48 }}>TrackListScreen</Text>
       <FlatList
         data={tracks}
         keyExtractor={(item) => item._id}
