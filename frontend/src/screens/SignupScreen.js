@@ -1,11 +1,10 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { Text } from "react-native-elements";
+import { View, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { signup } from "../redux/actions/auth";
 import AuthForm from "../components/AuthForm";
-import Spacer from "../components/Spacer";
+import NavLink from "../components/NavLink";
 
 const SignupScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -23,11 +22,10 @@ const SignupScreen = ({ navigation }) => {
         submitBtnText="Sign up"
         onSubmit={(form) => dispatch(signup(form))}
       />
-      <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
-        <Spacer>
-          <Text style={styles.link}>Already have an account? Sign in.</Text>
-        </Spacer>
-      </TouchableOpacity>
+      <NavLink
+        text="Already have an account? Sign in here."
+        navigateTo="Signin"
+      />
     </View>
   );
 };
@@ -37,9 +35,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     marginBottom: 250,
-  },
-  link: {
-    color: "blue",
   },
 });
 
