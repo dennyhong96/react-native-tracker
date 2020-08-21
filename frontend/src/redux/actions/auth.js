@@ -19,9 +19,28 @@ export const signup = (formData) => async (dispatch) => {
       payload: res.data.data.token,
     });
   } catch (error) {
+    console.error(error);
     dispatch({
       type: AUTH_ERROR,
       payload: "Something went wrong signign up",
+    });
+  }
+};
+
+export const signin = (formData) => async (dispatch) => {
+  console.log(formData);
+  try {
+    const res = await trackerApi.post("/auth/login", formData);
+    await AsyncStorage.setItem("JWT_TOKEN", res.data.data.token);
+    dispatch({
+      type: USER_SIGNED_IN,
+      payload: res.data.data.token,
+    });
+  } catch (error) {
+    console.error(error);
+    dispatch({
+      type: AUTH_ERROR,
+      payload: "Something went wrong signign in.",
     });
   }
 };
