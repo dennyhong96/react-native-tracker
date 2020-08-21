@@ -4,14 +4,20 @@ import React from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
 import { Text } from "react-native-elements";
 import { useDispatch } from "react-redux";
+import { useIsFocused } from "@react-navigation/native";
 import { addLocation } from "../redux/actions/location";
 
 import useLocation from "../hooks/useLocation";
+import useOnRouteChange from "../hooks/useOnRouteChange";
 import Map from "../components/Map";
 
 const TrackCreateScreen = () => {
   const dispatch = useDispatch();
-  const [err] = useLocation((location) => dispatch(addLocation(location)));
+  const isFocused = useIsFocused();
+
+  const [err] = useLocation(isFocused, (location) =>
+    dispatch(addLocation(location))
+  );
 
   return (
     <SafeAreaView>

@@ -5,12 +5,19 @@ import {
   watchPositionAsync,
 } from "expo-location";
 
-const useLocation = (callback) => {
+const useLocation = (shouldTrack, callback) => {
   const [err, setErr] = useState(null);
+  const [subscriber, setSubscriber] = useState(null);
 
+  // Toggle watching location
   useEffect(() => {
-    startWatching();
-  }, []);
+    if (shouldTrack) {
+      startWatching();
+    } else {
+      subscriber.remove(); // Stop existing sub
+      setSubscriber(null);
+    }
+  }, [shouldTrack]);
 
   const startWatching = async () => {
     try {
@@ -21,7 +28,7 @@ const useLocation = (callback) => {
       }
 
       // Start recording location
-      await watchPositionAsync(
+      const sub = await watchPositionAsync(
         {
           accuracy: Accuracy.BestForNavigation,
           timeInterval: 1000,
@@ -29,6 +36,9 @@ const useLocation = (callback) => {
         },
         callback
       );
+
+      // Sub is a different value each location update
+      setSubscriber(sub);
     } catch (error) {
       setErr(error);
     }
